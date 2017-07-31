@@ -21,17 +21,24 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var lyricsView: UITextView!
     
+    @IBAction func showAlertNoName() {
+        
+        // create the alert
+        let alert = UIAlertController(title: "Invalid Input", message: "Please enter a name.", preferredStyle: UIAlertControllerStyle.alert)
+        
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         nameField.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
- 
+    
     @IBAction func reset(_ sender: Any) {
         nameField.text = ""
         lyricsView.text = ""
@@ -39,7 +46,12 @@ class ViewController: UIViewController {
     
     @IBAction func displayLyrics(_ sender: Any) {
         
-        lyricsView.text = lyricsForName(lyricsTemplate: bananaFanaTemplate, fullName: nameField.text!)
+        //should I be checking for a blank nameField here or handle it in the lyricsForName method?
+        if nameField.text!.characters.count > 0{
+            lyricsView.text = lyricsForName(lyricsTemplate: bananaFanaTemplate, fullName: nameField.text!)
+        }else{
+            showAlertNoName()
+        }
     }
     
     
@@ -66,11 +78,11 @@ func lyricsForName(lyricsTemplate: String, fullName: String) -> String {
     return String(lyrics)
 }
 func shortNameForName(name: String) -> String {
+    
     let index = name.lowercased().characters.index { "aeiou".characters.contains($0) }
     var str = name.substring(with: (index != nil ? index! : name.endIndex)..<name.endIndex).lowercased()
     
     return String(str.characters)
-    
     
 }
 
