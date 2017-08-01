@@ -79,8 +79,15 @@ func lyricsForName(lyricsTemplate: String, fullName: String) -> String {
 }
 func shortNameForName(name: String) -> String {
     
+    var str = ""
     let index = name.lowercased().characters.index { "aeiou".characters.contains($0) }
-    var str = name.substring(with: (index != nil ? index! : name.endIndex)..<name.endIndex).lowercased()
+    
+    if(index != nil){
+        str = name.substring(from: index!).lowercased()
+    } else{
+        str = name.lowercased()
+    }
+    
     
     return String(str.characters)
     
