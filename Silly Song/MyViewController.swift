@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MyViewController.swift
 //  Silly Song
 //
 //  Created by Jeff on 7/27/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MyViewController: UIViewController {
 
     let bananaFanaTemplate = [
         "<FULL_NAME>, <FULL_NAME>, Bo B<SHORT_NAME>",
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         
         // show the alert
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
 
 
 // MARK: - UITextFieldDelegate
-extension ViewController: UITextFieldDelegate {
+extension MyViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
@@ -67,7 +67,7 @@ extension ViewController: UITextFieldDelegate {
 }
 
 
-func lyricsForName(lyricsTemplate: String, fullName: String) -> String {
+private func lyricsForName(lyricsTemplate: String, fullName: String) -> String {
     //var fullName = fullName
     let shortName = shortNameForName(name: fullName)
     
@@ -77,7 +77,7 @@ func lyricsForName(lyricsTemplate: String, fullName: String) -> String {
     
     return String(lyrics)
 }
-func shortNameForName(name: String) -> String {
+private func shortNameForName(name: String) -> String {
     
     var str = ""
     let index = name.lowercased().characters.index { "aeiou".characters.contains($0) }
